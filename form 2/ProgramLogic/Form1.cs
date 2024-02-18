@@ -1,11 +1,7 @@
 ﻿using CoolGraphicsApp.ProgramLogic.Save;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZedGraph;
@@ -27,17 +23,40 @@ namespace CoolGraphicsApp
         
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadAsync();
+        }
+
+        private async void LoadAsync()
+        {
+            ShowLoadingScreen();
             IStarter userLogic = null;
             CreateInstanceOfUserEntryClass(ref userLogic);
-
-            userLogic.Start();
-            UpdateFrame();
-
             ConfigurateCurve();
             DrawCurve();
             LoadUserSettings();
+
+            await Task.Run(() =>
+            {
+                userLogic.Start();
+            });
+
+            HideLoadingScreen();
             UpdateFrame();
         }
+
+
+        private void ShowLoadingScreen()
+        {
+            panel1.Visible = true;
+            label10.Visible = true;
+        }
+
+        private void HideLoadingScreen()
+        {
+            panel1.Visible = false ;
+            label10.Visible = false;
+        }
+
 
         private void LoadUserSettings()
         {
@@ -194,5 +213,7 @@ namespace CoolGraphicsApp
         {
             SaveUserSettings();
         }
+
+
     }
 }

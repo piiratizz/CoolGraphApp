@@ -33,7 +33,7 @@ namespace CoolGraphicsApp
         }
         public void Start()
         {
-            for (int len = 0; len <= 50000; len += 5000)
+            for (int len = 0; len <= 50000; len += 20000)
             {
                 Random random = new Random();
                 int[] arr = new int[len];
@@ -42,16 +42,16 @@ namespace CoolGraphicsApp
                     arr[i] = random.Next(0, 1000);
 
                 }
-                Array.Sort(arr);
-                Array.Reverse(arr);
+                //Array.Sort(arr);
+                //Array.Reverse(arr);
                 BubbleSortOptimized(arr);
 
                 for (long i = 0; i <= 50000; i++)
                 {
-                    PointsManager.RegisterPoint(i, i * i);
+                    PointsManager.RegisterPoint(arr.Length, PointsManager.SwapCount);
                 }
-                
-                
+
+
             }
         }
 
