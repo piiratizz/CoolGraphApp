@@ -59,5 +59,15 @@ namespace CoolGraphicsApp.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BibizyanaLoading {
+            get {
+                object obj = ResourceManager.GetObject("BibizyanaLoading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

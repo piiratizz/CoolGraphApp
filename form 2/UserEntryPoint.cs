@@ -7,7 +7,6 @@ namespace CoolGraphicsApp
     {
         static int[] ShellSort(int[] array)
         {
-            //расстояние между элементами, которые сравниваются
             var d = array.Length / 2;
             while (d >= 1)
             {
@@ -17,6 +16,7 @@ namespace CoolGraphicsApp
                     PointsManager.IncreaseCompare();
                     while ((j >= d) && (array[j - d] > array[j]))
                     {
+                        PointsManager.IncreaseCompare();
                         PointsManager.IncreaseSwap();
                         var t = array[j];
                         array[j] = array[j - d];
@@ -31,25 +31,36 @@ namespace CoolGraphicsApp
 
             return array;
         }
-        public void Start()
+        static void Swap(ref int a, ref int b)
         {
-            for (int len = 0; len <= 50000; len += 20000)
+            PointsManager.IncreaseSwap();
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+
+        public void Start() 
+        {
+            int leng = 50000;
+            for (long len = 0; len <= leng; len += 5000)
             {
                 Random random = new Random();
                 int[] arr = new int[len];
+
                 for (int i = 0; i < arr.Length; i++)
                 {
                     arr[i] = random.Next(0, 1000);
+                }BubbleSortOptimized(arr);
+                Array.Sort(arr);
+                Array.Reverse(arr);
+                ShellSort(arr);
+                
 
-                }
-                //Array.Sort(arr);
-                //Array.Reverse(arr);
-                BubbleSortOptimized(arr);
-
-                for (long i = 0; i <= 50000; i++)
-                {
-                    PointsManager.RegisterPoint(arr.Length, PointsManager.SwapCount);
-                }
+                for (long i = 0; i <= leng; i++)
+            {
+                PointsManager.RegisterPoint(i, i * Math.Log(i));
+            }
 
 
             }
@@ -78,6 +89,7 @@ namespace CoolGraphicsApp
 
                 for (int i = 0; i < (array.Length - step - 1); ++i)
                 {
+                    PointsManager.IncreaseCompare();
                     if (array[i] > array[i + 1])
                     {
                         Swap(ref array[i], ref array[i + 1]);
@@ -89,21 +101,15 @@ namespace CoolGraphicsApp
             }
         }
 
-        static void Swap(ref int a, ref int b)
-        {
-            PointsManager.IncreaseSwap();
-            int temp = a; 
-            a = b;
-            b = temp;
-        }
+
 
         static void StartShellSort(int[] array)
         {
             int value = 1;
-            array = GonnetPidorNextStep(value, array.Length);
+            array = GonnetNextStep(value, array.Length);
             ShellSort(array);
         }
-        static int[] GonnetPidorNextStep(int startValue, int len)
+        static int[] GonnetNextStep(int startValue, int len)
         {
             int current = startValue;
             int next = 0;
