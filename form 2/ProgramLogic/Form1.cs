@@ -1,4 +1,5 @@
-﻿using CoolGraphicsApp.ProgramLogic.Save;
+﻿using CoolGraphicsApp.ProgramLogic;
+using CoolGraphicsApp.ProgramLogic.Save;
 using System;
 using System.Drawing;
 using System.Reflection;
@@ -31,15 +32,14 @@ namespace CoolGraphicsApp
             ShowLoadingScreen();
             IStarter userLogic = null;
             CreateInstanceOfUserEntryClass(ref userLogic);
-            ConfigurateCurve();
-            DrawCurve();
-            LoadUserSettings();
 
             await Task.Run(() =>
             {
                 userLogic.Start();
             });
 
+            ConfigurateCurve();
+            LoadUserSettings();
             HideLoadingScreen();
             UpdateFrame();
         }
@@ -85,12 +85,6 @@ namespace CoolGraphicsApp
             _formatter.Save<Config>(Path, configBuilder.GetConfig());
         }
 
-        private void DrawCurve()
-        {
-            _lineItem = graphPane.AddCurve("", PointsManager.GetPairs(), Color.Red, SymbolType.None);
-            label7.Text = PointsManager.SwapCount.ToString();
-            label8.Text = PointsManager.CompareCount.ToString();
-        }
 
         private void CreateInstanceOfUserEntryClass(ref IStarter starter)
         {
@@ -133,6 +127,10 @@ namespace CoolGraphicsApp
             graphPane.XAxis.MinorGrid.IsVisible = true;
             graphPane.XAxis.MinorGrid.DashOn = 1;
             graphPane.XAxis.MinorGrid.DashOff = 2;
+
+            _lineItem = graphPane.AddCurve("", PointsManager.GetPairs(), Color.Red, SymbolType.None);
+            label7.Text = PointsManager.SwapCount.ToString();
+            label8.Text = PointsManager.CompareCount.ToString();
         }
        
 

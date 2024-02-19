@@ -59,6 +59,7 @@
     <Compile Include="ProgramLogic\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgramLogic\Logger.cs" />
     <Compile Include="ProgramLogic\Save\BinaryDataFormatter.cs" />
     <Compile Include="ProgramLogic\Save\Config.cs" />
     <Compile Include="ProgramLogic\Save\ConfigBuilder.cs" />
@@ -97,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProgramLogic\License-LGPL.txt" />
+    <None Include="Resources\IMG_6514 %282%29.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
